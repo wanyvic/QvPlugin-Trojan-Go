@@ -25,6 +25,8 @@ jobs:
           - platform: ubuntu-16.04
             arch: x86
           - platform: macos-latest
+            arch: x86
+          - platform: windows-latest
             arch: arm64
       fail-fast: false
         

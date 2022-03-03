@@ -35,6 +35,19 @@ jobs:
       - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1
+        with:
+          path: ../Qt
+          key: QtCache-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.qt_version }}-${{ matrix.qtarch }}
+      - name: Installing Qt - ${{ matrix.arch }}
+        uses: jurplel/install-qt-action@v2.5.3
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.qtarch }}
+          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'macos-latest'

@@ -21,6 +21,8 @@ jobs:
         id: get_version
         shell: bash
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+        run: echo $(sysctl -a |grep machdep.cpu.brand_string)
+        run: echo $(python3 --version)
       - name: Get Plugin Name
         id: get_name
         shell: bash
